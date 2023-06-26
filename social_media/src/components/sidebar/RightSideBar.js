@@ -1,5 +1,5 @@
 import React from "react";
-import { Sidebar, Menu, MenuItem, SubMenu } from "react-pro-sidebar";
+import { Sidebar, Menu, MenuItem } from "react-pro-sidebar";
 import "./SideBar.css";
 import "./RightSideBar.css"
 export default function RightSideBar() {

@@ -2,7 +2,7 @@ import React from "react";
 import Header from "../header/Header";
 import LeftSideBar from "../sidebar/LeftSideBar";
 import RightSideBar from "../sidebar/RightSideBar"
-import { Row, Col, Container } from "react-bootstrap";
+import { Container } from "react-bootstrap";
 import "./Layout.css"
 export default function Layout(props) {
   return (
