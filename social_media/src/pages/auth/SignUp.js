@@ -15,7 +15,6 @@ export default function Signup() {
   } = useForm();
 
   const onSubmit = (data) => {
-    console.log("data", data);
     axiosPost("/api/auth/signup", data)
       .then((res) => {
         localStorage.setItem("token", res.data.encodedToken);

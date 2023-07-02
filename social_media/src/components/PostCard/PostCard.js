@@ -1,5 +1,5 @@
-import React, { useContext } from "react";
-import { Card, Col, Row } from "react-bootstrap";
+import React, { useContext, useState } from "react";
+import { Card, Col, Row, Form, Button } from "react-bootstrap";
 import { BsSuitHeart, BsSuitHeartFill } from "react-icons/bs";
 import { FaRegComment } from "react-icons/fa";
 import { CiBookmark } from "react-icons/ci";
@@ -8,14 +8,16 @@ import { RiDeleteBinLine } from "react-icons/ri";
 import moment from "moment";
 import "./PostCard.css";
 import { UserContext } from "../layout/Layout";
-import { axiosPost,axiosDelete } from "../../utils/Helper";
-import Swal from "sweetalert2"
+import { axiosPost, axiosDelete } from "../../utils/Helper";
+import Swal from "sweetalert2";
 
 export default function PostCard({ post, setPosts }) {
   const { user } = useContext(UserContext);
   const token = localStorage.getItem("token");
 
-  console.log("user", user);
+  const [isEdit, setIsEdit] = useState(false);
+  const [editPost, setEditPost] = useState();
+
   const likePost = () => {
     axiosPost(`/api/posts/like/${post._id}`, {}, token)
       .then((res) => {
@@ -39,13 +41,18 @@ export default function PostCard({ post, setPosts }) {
   const deletePost = () => {
     axiosDelete(`/api/posts/${post._id}`, token)
       .then((res) => {
-        console.log('res.data', res.data)
-        Swal.fire(
-          "Deleted!",
-          "Your file has been deleted.",
-          "success"
-        );
         setPosts(res.data.posts);
+      })
+      .catch((error) => {
+        console.log("error", error);
+      });
+  };
+
+  const updatePost = () => {
+    axiosPost(`/api/posts/edit/${post._id}`, { content: editPost }, token)
+      .then((res) => {
+        setPosts(res.data.posts);
+        setIsEdit(false);
       })
       .catch((error) => {
         console.log("error", error);
@@ -83,7 +90,26 @@ export default function PostCard({ post, setPosts }) {
         </Card.Title>
         <Card.Text>
           <div className="descreption" title={post.content}>
-            {post.content}
+            {isEdit ? (
+              <>
+                <Form.Control
+                  as="textarea"
+                  rows={3}
+                  placeholder="Create new posts....."
+                  className="createPost"
+                  value={editPost}
+                  onChange={(e) => {
+                    setEditPost(e.target.value);
+                  }}
+                />
+                <Button className="CreatePost-btn" onClick={() => updatePost()}>
+                  {" "}
+                  Update post
+                </Button>
+              </>
+            ) : (
+              post.content
+            )}
           </div>
           {post.image && (
             <div className="postImage">
@@ -115,7 +141,14 @@ export default function PostCard({ post, setPosts }) {
         <FaRegComment size={25} className="border-icon-comment me-5" />
         {user.username === post.username && (
           <>
-            <FiEdit2 size={25} className="border-icon-edit me-5" />
+            <FiEdit2
+              size={25}
+              className="border-icon-edit me-5"
+              onClick={() => {
+                setEditPost(post.content);
+                setIsEdit(!isEdit);
+              }}
+            />
             <RiDeleteBinLine
               size={25}
               className="border-icon-delete"
@@ -130,7 +163,7 @@ export default function PostCard({ post, setPosts }) {
                   confirmButtonText: "Yes, delete it!",
                 }).then((result) => {
                   if (result.isConfirmed) {
-                    deletePost()                    
+                    deletePost();
                   }
                 });
               }}

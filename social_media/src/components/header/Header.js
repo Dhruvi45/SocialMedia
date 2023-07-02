@@ -34,7 +34,7 @@ export default function Header() {
               {user.firstName} {user.lastName}
             </div>
             <NavDropdown id="navbarScrollingDropdown">
-              <NavDropdown.Item href="#action3">My profile</NavDropdown.Item>
+              <NavDropdown.Item onClick={()=> navigate("/MyProfile")}>My profile</NavDropdown.Item>
               <NavDropdown.Item onClick={() => logout()}>
                 Logout
               </NavDropdown.Item>

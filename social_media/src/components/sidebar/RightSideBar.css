@@ -1,3 +1,15 @@
 .rightMenu{
     text-align: left;
 }
+.followName{
+    margin-left: auto !important;
+}
+.followBtn{
+    border-radius: 20px !important;
+}
+.even{
+    background-color: burlywood;
+}
+.odd{
+    background-color: beige;
+}

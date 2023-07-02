@@ -21,10 +21,8 @@ export default function Layout(props) {
 
   const getUserDetails = () => {
     const decodeToken = jwt_decode(token, process.env.REACT_APP_JWT_SECRET);
-    console.log("decodeToken", decodeToken);
     axiosGet(`/api/users/${decodeToken.id}`)
       .then((res) => {
-        console.log('res', res)
         setUser(res.data.user);
         setLoading(false)
       })

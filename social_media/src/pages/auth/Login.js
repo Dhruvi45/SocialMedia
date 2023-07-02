@@ -15,7 +15,6 @@ const nevigate = useNavigate()
   } = useForm();
 
   const onSubmit = (data) => {
-    console.log("data", data);
     axiosPost("/api/auth/login", data)
       .then((res) => {
         localStorage.setItem("token", res.data.encodedToken);

@@ -10,7 +10,6 @@ export default function AddPost(props) {
   const onCreate = () => {
     axiosPost("/api/posts", { content: newPost },token)
       .then((res) => {
-        console.log('res.data.posts', res.data.posts)
         setPosts(res.data.posts);
       })
       .catch((error) => {
@@ -18,19 +17,7 @@ export default function AddPost(props) {
         // toast.error(error)
       });
   };
-  // useEffect(() => {
-  //   axiosPost("/api/auth/login", {
-  //     username: "adarshbalika",
-  //     password: "adarshBalika123",
-  //   })
-  //     .then((res) => {
-  //       console.log("res auth", res);
-  //     })
-  //     .catch((error) => {
-  //       console.log("error auth", error);
-  //       // toast.error(error)
-  //     });
-  // });
+  
   return (
     <Card className="m-3">
       <Card.Body>
