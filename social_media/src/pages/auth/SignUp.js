@@ -5,9 +5,9 @@ import { UserContext } from "../../components/layout/Layout";
 import { axiosPost } from "../../utils/Helper";
 import "./Login.css";
 
-export default function Login() {
+export default function Signup() {
   const { setUser } = useContext(UserContext);
-const nevigate = useNavigate()
+  const nevigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -16,11 +16,11 @@ const nevigate = useNavigate()
 
   const onSubmit = (data) => {
     console.log("data", data);
-    axiosPost("/api/auth/login", data)
+    axiosPost("/api/auth/signup", data)
       .then((res) => {
         localStorage.setItem("token", res.data.encodedToken);
-        setUser(res.data.foundUser);
-        nevigate("/home")
+        setUser(res.data.createdUser);
+        nevigate("/home");
       })
       .catch((error) => {
         console.log("error", error);
@@ -31,7 +31,35 @@ const nevigate = useNavigate()
     <div className="Auth-form-container">
       <form className="Auth-form" onSubmit={handleSubmit(onSubmit)}>
         <div className="Auth-form-content">
-          <h3 className="Auth-form-title">Sign In</h3>
+          <h3 className="Auth-form-title">Sign Up</h3>
+          <div className="form-group mt-3 heigth">
+            <label>FirstName</label>
+            <input
+              type="text"
+              className={`form-control mt-1 ${
+                errors.firstName ? "border border-danger" : ""
+              }`}
+              placeholder="Enter firstName"
+              {...register("firstName", { required: true })}
+            />
+            {errors.firstName && (
+              <p className="text-danger">Please enter number for firstName.</p>
+            )}
+          </div>
+          <div className="form-group mt-3 heigth">
+            <label>LastName</label>
+            <input
+              type="text"
+              className={`form-control mt-1 ${
+                errors.lastName ? "border border-danger" : ""
+              }`}
+              placeholder="Enter lastName"
+              {...register("lastName", { required: true })}
+            />
+            {errors.lastName && (
+              <p className="text-danger">Please enter number for lastName.</p>
+            )}
+          </div>        
           <div className="form-group mt-3 heigth">
             <label>UserName</label>
             <input

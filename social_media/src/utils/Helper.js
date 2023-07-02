@@ -29,3 +29,20 @@ export const axiosPost = (reqUrl, reqBody, token) => {
       });
   });
 };
+
+export const axiosDelete = (reqUrl, token) => {
+  return new Promise((resolve, reject) => {
+    axios
+      .delete(reqUrl, {
+        headers: {
+          authorization: token,
+        },
+      })
+      .then((response) => {
+        resolve(response);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
+};

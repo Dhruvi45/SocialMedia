@@ -4,13 +4,15 @@ import { UserContext } from "../layout/Layout";
 import { FaUser } from "react-icons/fa";
 
 import "./Header.css";
+import { useNavigate } from "react-router-dom";
 
 export default function Header() {
   const { user } = useContext(UserContext);
+  const navigate = useNavigate();
 
   const logout = () => {
     localStorage.clear();
-    window.location.reload();
+    navigate("/login");
   };
 
   return (

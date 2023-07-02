@@ -37,7 +37,7 @@ export default function Layout(props) {
     <>
       <Container fluid className="p-0">
         <UserContext.Provider value={{ user, setUser }}>
-          {location.pathname === "/login" || location.pathname === "/" ? (
+          {location.pathname === "/login" || location.pathname === "/" || location.pathname === "/signUp" ? (
             <div>{props.children}</div>
           ) : loading ? (
             <Loader />

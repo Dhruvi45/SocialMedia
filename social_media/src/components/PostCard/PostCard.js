@@ -8,14 +8,16 @@ import { RiDeleteBinLine } from "react-icons/ri";
 import moment from "moment";
 import "./PostCard.css";
 import { UserContext } from "../layout/Layout";
-import { axiosPost } from "../../utils/Helper";
+import { axiosPost,axiosDelete } from "../../utils/Helper";
+import Swal from "sweetalert2"
+
 export default function PostCard({ post, setPosts }) {
   const { user } = useContext(UserContext);
   const token = localStorage.getItem("token");
 
   console.log("user", user);
   const likePost = () => {
-    axiosPost(`/api/posts/like/${post._id}`,{},token)
+    axiosPost(`/api/posts/like/${post._id}`, {}, token)
       .then((res) => {
         setPosts(res.data.posts);
       })
@@ -25,8 +27,24 @@ export default function PostCard({ post, setPosts }) {
   };
 
   const dislikePost = () => {
-    axiosPost(`/api/posts/dislike/${post._id}`,{},token)
+    axiosPost(`/api/posts/dislike/${post._id}`, {}, token)
       .then((res) => {
+        setPosts(res.data.posts);
+      })
+      .catch((error) => {
+        console.log("error", error);
+      });
+  };
+
+  const deletePost = () => {
+    axiosDelete(`/api/posts/${post._id}`, token)
+      .then((res) => {
+        console.log('res.data', res.data)
+        Swal.fire(
+          "Deleted!",
+          "Your file has been deleted.",
+          "success"
+        );
         setPosts(res.data.posts);
       })
       .catch((error) => {
@@ -98,7 +116,25 @@ export default function PostCard({ post, setPosts }) {
         {user.username === post.username && (
           <>
             <FiEdit2 size={25} className="border-icon-edit me-5" />
-            <RiDeleteBinLine size={25} className="border-icon-delete" />
+            <RiDeleteBinLine
+              size={25}
+              className="border-icon-delete"
+              onClick={() => {
+                Swal.fire({
+                  title: "Are you sure?",
+                  text: "You won't be able to delete this!",
+                  icon: "warning",
+                  showCancelButton: true,
+                  confirmButtonColor: "#3085d6",
+                  cancelButtonColor: "#d33",
+                  confirmButtonText: "Yes, delete it!",
+                }).then((result) => {
+                  if (result.isConfirmed) {
+                    deletePost()                    
+                  }
+                });
+              }}
+            />
           </>
         )}
       </Card.Footer>
