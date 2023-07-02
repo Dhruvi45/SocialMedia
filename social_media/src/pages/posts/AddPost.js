@@ -5,9 +5,10 @@ import "./AddPost.css";
 export default function AddPost(props) {
   const { setPosts } = props;
   const [newPost, setNewPost] = useState();
+  const token = localStorage.getItem("token");
 
   const onCreate = () => {
-    axiosPost("/api/posts", { content: newPost })
+    axiosPost("/api/posts", { content: newPost },token)
       .then((res) => {
         console.log('res.data.posts', res.data.posts)
         setPosts(res.data.posts);

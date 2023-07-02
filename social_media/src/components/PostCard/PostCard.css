@@ -27,7 +27,7 @@
 
 .iconRows {
   display: flex;
-  justify-content: space-around;
+  /* justify-content: space-around; */
 }
 .border-icon-heart {
   color: red;

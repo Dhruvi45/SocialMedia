@@ -7,6 +7,7 @@ import AddPost from "../posts/AddPost";
 
 export default function Home() {
   const [posts, setPosts] = useState([]);
+  const [userPosts, setUserPosts] = useState([]);
   const [loading, setLoading] = useState(false);
 
   const getPost = async () => {
@@ -20,9 +21,33 @@ export default function Home() {
       });
     setLoading(false);
   };
+
+  const getPostByUserName = async () => {
+    await axiosGet(`/api/posts/user/shubhamsoni`)
+      .then((res) => {
+        setUserPosts(res.data.posts);
+      })
+      .catch((error) => {
+        console.log("error", error);
+        // toast.error(error)
+      });
+    setLoading(false);
+  };
+  const manageUserPost = () => {
+    userPosts.every((userPost) => {
+      posts.every((post) => {
+        if (userPost._id === post._id) {
+          post.isMyPost = true;
+        } else {
+          post.isMyPost = false;
+        }
+      });
+    });
+  };
   useEffect(() => {
     setLoading(true);
     getPost();
+    manageUserPost()
   }, []);
 
   return (
@@ -31,11 +56,11 @@ export default function Home() {
         <Loader size="lg" />
       ) : (
         <div>
-          <AddPost setPosts={setPosts}/>
+          <AddPost setPosts={setPosts} />
           {posts.map((post, index) => {
             return (
               <>
-                <PostCard post={post} />
+                <PostCard post={post} setPosts={setPosts} />
               </>
             );
           })}
