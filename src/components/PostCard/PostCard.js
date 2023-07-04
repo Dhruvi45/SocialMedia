@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import { Card, Col, Row, Form, Button } from "react-bootstrap";
 import { BsSuitHeart, BsSuitHeartFill } from "react-icons/bs";
 import { FaRegComment } from "react-icons/fa";
-import { CiBookmark } from "react-icons/ci";
+import { RxBookmark, RxBookmarkFilled } from "react-icons/rx";
 import { FiEdit2 } from "react-icons/fi";
 import { RiDeleteBinLine } from "react-icons/ri";
 import moment from "moment";
@@ -12,16 +12,47 @@ import { axiosPost, axiosDelete } from "../../utils/Helper";
 import Swal from "sweetalert2";
 
 export default function PostCard({ post, setPosts }) {
-  const { user } = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
   const token = localStorage.getItem("token");
-
   const [isEdit, setIsEdit] = useState(false);
   const [editPost, setEditPost] = useState();
 
   const likePost = () => {
     axiosPost(`/api/posts/like/${post._id}`, {}, token)
       .then((res) => {
+        console.log('res.data.posts', res.data.posts)
         setPosts(res.data.posts);
+      })
+      .catch((error) => {
+        console.log("error", error);
+      });
+  };
+
+  const bookmarkPost = () => {
+    axiosPost(`/api/users/bookmark/${post._id}`, {}, token)
+      .then((res) => {
+        setUser((data) => {
+          return {
+            ...data,
+            bookmarks:res.data.bookmarks
+          }
+        }
+        )
+      })
+      .catch((error) => {
+        console.log("error", error);
+      });
+  };
+  const RemoveBookmarkPost = () => {
+    axiosPost(`/api/users/remove-bookmark/${post._id}`, {}, token)
+      .then((res) => {
+        setUser((data) => {
+          return {
+            ...data,
+            bookmarks:res.data.bookmarks
+          }
+        }
+        )
       })
       .catch((error) => {
         console.log("error", error);
@@ -137,8 +168,20 @@ export default function PostCard({ post, setPosts }) {
         )}
 
         <span className="me-5">{post.likes.likeCount}</span>
-        <CiBookmark size={25} className="border-icon-save me-5" />
-        <FaRegComment size={25} className="border-icon-comment me-5" />
+        {user.bookmarks.some((bookmark) => bookmark._id === post._id) ? (
+          <RxBookmarkFilled
+            size={25}
+            className="border-icon-save me-5"
+            onClick={() => RemoveBookmarkPost()}
+          />
+        ) : (
+          <RxBookmark
+            size={25}
+            className="border-icon-save me-5"
+            onClick={() => bookmarkPost()}
+          />
+        )}
+
         {user.username === post.username && (
           <>
             <FiEdit2
