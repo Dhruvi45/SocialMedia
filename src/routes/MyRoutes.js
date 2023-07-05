@@ -5,6 +5,7 @@ import Login from "../pages/auth/Login";
 import SignUp from "../pages/auth/SignUp";
 import Home from "../pages/home/Home";
 import MyProfile from "../pages/profile/MyProfile";
+import MyBookmarks from "../pages/posts/MyBookmarks";
 export default function MyRoutes() {
   return (
     <Layout>
@@ -14,6 +15,7 @@ export default function MyRoutes() {
         <Route path="/signUp" element={<SignUp />} />
         <Route path="/home" element={<Home />} />
         <Route path="/MyProfile" element={<MyProfile />} />
+        <Route path="/MyBookmark" element={<MyBookmarks />} />
       </Routes>
     </Layout>
   );

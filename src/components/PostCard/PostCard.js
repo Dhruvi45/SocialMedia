@@ -16,7 +16,7 @@ export default function PostCard({ post, setPosts }) {
   const token = localStorage.getItem("token");
   const [isEdit, setIsEdit] = useState(false);
   const [editPost, setEditPost] = useState();
-
+console.log('post.likes.likedBy', post.likes.likedBy)
   const likePost = () => {
     axiosPost(`/api/posts/like/${post._id}`, {}, token)
       .then((res) => {
@@ -153,7 +153,7 @@ export default function PostCard({ post, setPosts }) {
         </Card.Text>
       </Card.Body>
       <Card.Footer className="iconRows">
-        {post.likes.likedBy.some((likeby) => likeby._id === user._id) ? (
+        {post.likes.likedBy.length> 0 && post.likes.likedBy.some((likeby) => likeby._id === user._id) ? (
           <BsSuitHeartFill
             size={25}
             className="border-icon-heart me-2"

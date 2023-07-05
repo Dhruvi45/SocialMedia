@@ -1,9 +1,16 @@
 import axios from "axios";
 
-export const axiosGet = (reqUrl) => {
+const accessToken = localStorage.getItem("token");
+
+export const axiosGet = (reqUrl, token=accessToken) => {
   return new Promise((resolve, reject) => {
     axios
-      .get(reqUrl)
+      .get(reqUrl,
+        {
+          headers: {
+            authorization: token,
+          }
+        })
       .then((response) => {
         resolve(response);
       })

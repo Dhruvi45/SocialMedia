@@ -23,7 +23,7 @@ export default function Header() {
           <span className="headerTitle">Friendify</span>
         </Navbar.Brand>
         <Nav className="me-auto">
-          <Nav.Link href="#home">Home</Nav.Link>
+          <Nav.Link onClick={()=>navigate("/home")}>Home</Nav.Link>
           <Nav.Link href="#features">Features</Nav.Link>
           <Nav.Link href="#pricing">Pricing</Nav.Link>
         </Nav>

@@ -22,18 +22,7 @@ export default function Home() {
     setLoading(false);
   };
 
-  const getPostByUserName = async () => {
-    await axiosGet(`/api/posts/user/shubhamsoni`)
-      .then((res) => {
-        setUserPosts(res.data.posts);
-      })
-      .catch((error) => {
-        console.log("error", error);
-        // toast.error(error)
-      });
-    setLoading(false);
-  };
-  const manageUserPost = () => {
+ const manageUserPost = () => {
     userPosts.every((userPost) => {
       posts.every((post) => {
         if (userPost._id === post._id) {
@@ -47,7 +36,7 @@ export default function Home() {
   useEffect(() => {
     setLoading(true);
     getPost();
-    manageUserPost()
+    // manageUserPost()
   }, []);
 
   return (
