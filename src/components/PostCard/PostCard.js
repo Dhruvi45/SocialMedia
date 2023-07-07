@@ -91,7 +91,7 @@ console.log('post.likes.likedBy', post.likes.likedBy)
   };
 
   return (
-    <Card className="m-3">
+    <Card className="m-3 custom-card">
       <Card.Body>
         <Card.Title>
           <Row>

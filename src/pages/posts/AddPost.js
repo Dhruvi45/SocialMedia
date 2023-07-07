@@ -19,7 +19,7 @@ export default function AddPost(props) {
   };
   
   return (
-    <Card className="m-3">
+    <Card className="m-3 custom-card">
       <Card.Body>
         <Card.Title>
           <Row>

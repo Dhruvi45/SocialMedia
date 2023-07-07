@@ -48,7 +48,7 @@ export default function RightSideBar() {
     getUserList();
   }, []);
   return (
-    <Sidebar>
+    <Sidebar className="custom-sidebar">
       <Menu>
         {userList.length > 0 &&
           userList.map((userFromUserList, index) => {

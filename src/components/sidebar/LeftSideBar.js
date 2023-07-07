@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 export default function LeftSideBar() {
   const navigate = useNavigate()
   return (
-    <Sidebar>
+    <Sidebar  className="custom-sidebar">
       <Menu>
         <MenuItem
           onClick={() => navigate("/MyBookmark")}

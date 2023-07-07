@@ -32,7 +32,7 @@ export default function UserDeatil() {
   return (
     <>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <Card className="m-3">
+        <Card className="m-3 custom-card">
           <Card.Body>
             <Row>
               <Col>
