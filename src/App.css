@@ -5,8 +5,9 @@
   background-color: #5cd6d6;
 }
 .custom-card {
-  background-color: #99e6e6;
+  background-color: #99e6e6 !important;
 }
 .custom-btn {
-  background-color: #47d1d1;
+  background-color: #239090 !important;
+  border: #239090 !important;
 }

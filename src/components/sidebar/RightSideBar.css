@@ -8,8 +8,12 @@
     border-radius: 20px !important;
 }
 .even{
-    background-color: burlywood;
+    background-color: #d6f5f5;
+
 }
 .odd{
-    background-color: beige;
+    background-color: #eafafa;
+}
+.rigthSidebar{
+    width: 270px !important;
 }

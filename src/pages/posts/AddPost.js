@@ -45,7 +45,7 @@ export default function AddPost(props) {
         </Card.Title>
       </Card.Body>
       <Card.Footer>
-        <Button className="CreatePost-btn" onClick={() => onCreate()}>
+        <Button className="CreatePost-btn custom-btn" onClick={() => onCreate()}>
           {" "}
           Create new post
         </Button>

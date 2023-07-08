@@ -144,7 +144,7 @@ export default function UserDeatil() {
           </Card.Body>
           <Card.Footer>
             <Button
-              className="CreatePost-btn"
+              className="CreatePost-btn custom-btn"
               type="submit"
               //   onClick={() => {
               //     if (isEdit) handleSubmit(onSubmit);

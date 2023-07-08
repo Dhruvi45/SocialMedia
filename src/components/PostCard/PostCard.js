@@ -133,7 +133,7 @@ console.log('post.likes.likedBy', post.likes.likedBy)
                     setEditPost(e.target.value);
                   }}
                 />
-                <Button className="CreatePost-btn" onClick={() => updatePost()}>
+                <Button className="CreatePost-btn custom-btn" onClick={() => updatePost()}>
                   {" "}
                   Update post
                 </Button>

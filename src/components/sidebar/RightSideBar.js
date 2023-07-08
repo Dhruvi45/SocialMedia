@@ -48,7 +48,7 @@ export default function RightSideBar() {
     getUserList();
   }, []);
   return (
-    <Sidebar className="custom-sidebar">
+    <Sidebar className="custom-sidebar rigthSidebar">
       <Menu>
         {userList.length > 0 &&
           userList.map((userFromUserList, index) => {
@@ -67,7 +67,7 @@ export default function RightSideBar() {
                   </Col>
                   <Col className="me-0">
                     <Button
-                      className="followBtn mt-1"
+                      className="followBtn mt-1 custom-btn"
                       onClick={() => {
                         if (!user.following.some((obj) => obj._id === userFromUserList._id)) {
                           follow(userFromUserList._id);
