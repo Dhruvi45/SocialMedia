@@ -11,16 +11,16 @@ import { UserContext } from "../layout/Layout";
 import { axiosPost, axiosDelete } from "../../utils/Helper";
 import Swal from "sweetalert2";
 
-export default function PostCard({ post, setPosts }) {
+export default function PostCard({ post, setPosts, calledFrom }) {
   const { user, setUser } = useContext(UserContext);
   const token = localStorage.getItem("token");
   const [isEdit, setIsEdit] = useState(false);
   const [editPost, setEditPost] = useState();
-console.log('post.likes.likedBy', post.likes.likedBy)
+  console.log("post.likes.likedBy", post.likes.likedBy);
   const likePost = () => {
     axiosPost(`/api/posts/like/${post._id}`, {}, token)
       .then((res) => {
-        console.log('res.data.posts', res.data.posts)
+        console.log("res.data.posts", res.data.posts);
         setPosts(res.data.posts);
       })
       .catch((error) => {
@@ -34,10 +34,9 @@ console.log('post.likes.likedBy', post.likes.likedBy)
         setUser((data) => {
           return {
             ...data,
-            bookmarks:res.data.bookmarks
-          }
-        }
-        )
+            bookmarks: res.data.bookmarks,
+          };
+        });
       })
       .catch((error) => {
         console.log("error", error);
@@ -49,10 +48,9 @@ console.log('post.likes.likedBy', post.likes.likedBy)
         setUser((data) => {
           return {
             ...data,
-            bookmarks:res.data.bookmarks
-          }
-        }
-        )
+            bookmarks: res.data.bookmarks,
+          };
+        });
       })
       .catch((error) => {
         console.log("error", error);
@@ -121,7 +119,7 @@ console.log('post.likes.likedBy', post.likes.likedBy)
         </Card.Title>
         <Card.Text>
           <div className="descreption" title={post.content}>
-            {isEdit ? (
+            {calledFrom === "home" && isEdit ? (
               <>
                 <Form.Control
                   as="textarea"
@@ -133,7 +131,10 @@ console.log('post.likes.likedBy', post.likes.likedBy)
                     setEditPost(e.target.value);
                   }}
                 />
-                <Button className="CreatePost-btn custom-btn" onClick={() => updatePost()}>
+                <Button
+                  className="CreatePost-btn custom-btn"
+                  onClick={() => updatePost()}
+                >
                   {" "}
                   Update post
                 </Button>
@@ -153,64 +154,69 @@ console.log('post.likes.likedBy', post.likes.likedBy)
         </Card.Text>
       </Card.Body>
       <Card.Footer className="iconRows">
-        {post.likes.likedBy.length> 0 && post.likes.likedBy.some((likeby) => likeby._id === user._id) ? (
-          <BsSuitHeartFill
-            size={25}
-            className="border-icon-heart me-2"
-            onClick={() => dislikePost()}
-          />
-        ) : (
-          <BsSuitHeart
-            size={25}
-            className="border-icon-heart me-2"
-            onClick={() => likePost()}
-          />
-        )}
-
-        <span className="me-5">{post.likes.likeCount}</span>
-        {user.bookmarks.some((bookmark) => bookmark._id === post._id) ? (
-          <RxBookmarkFilled
-            size={25}
-            className="border-icon-save me-5"
-            onClick={() => RemoveBookmarkPost()}
-          />
-        ) : (
-          <RxBookmark
-            size={25}
-            className="border-icon-save me-5"
-            onClick={() => bookmarkPost()}
-          />
-        )}
-
-        {user.username === post.username && (
+        {calledFrom === "home" && (
           <>
-            <FiEdit2
-              size={25}
-              className="border-icon-edit me-5"
-              onClick={() => {
-                setEditPost(post.content);
-                setIsEdit(!isEdit);
-              }}
-            />
-            <RiDeleteBinLine
-              size={25}
-              className="border-icon-delete"
-              onClick={() => {
-                Swal.fire({
-                  title: "Are you sure?",
-                  text: "You won't be able to delete this!",
-                  icon: "warning",
-                  showCancelButton: true,
-                  confirmButtonColor: "#3085d6",
-                  cancelButtonColor: "#d33",
-                  confirmButtonText: "Yes, delete it!",
-                }).then((result) => {
-                  if (result.isConfirmed) {
-                    deletePost();
-                  }
-                });
-              }}
-            />
+            {post.likes.likedBy.length > 0 &&
+            post.likes.likedBy.some((likeby) => likeby._id === user._id) ? (
+              <BsSuitHeartFill
+                size={25}
+                className="border-icon-heart me-2"
+                onClick={() => dislikePost()}
+              />
+            ) : (
+              <BsSuitHeart
+                size={25}
+                className="border-icon-heart me-2"
+                onClick={() => likePost()}
+              />
+            )}
+
+            <span className="me-5">{post.likes.likeCount}</span>
+            {user.bookmarks.some((bookmark) => bookmark._id === post._id) ? (
+              <RxBookmarkFilled
+                size={25}
+                className="border-icon-save me-5"
+                onClick={() => RemoveBookmarkPost()}
+              />
+            ) : (
+              <RxBookmark
+                size={25}
+                className="border-icon-save me-5"
+                onClick={() => bookmarkPost()}
+              />
+            )}
+
+            {user.username === post.username && (
+              <>
+                <FiEdit2
+                  size={25}
+                  className="border-icon-edit me-5"
+                  onClick={() => {
+                    setEditPost(post.content);
+                    setIsEdit(!isEdit);
+                  }}
+                />
+                <RiDeleteBinLine
+                  size={25}
+                  className="border-icon-delete"
+                  onClick={() => {
+                    Swal.fire({
+                      title: "Are you sure?",
+                      text: "You won't be able to delete this!",
+                      icon: "warning",
+                      showCancelButton: true,
+                      confirmButtonColor: "#3085d6",
+                      cancelButtonColor: "#d33",
+                      confirmButtonText: "Yes, delete it!",
+                    }).then((result) => {
+                      if (result.isConfirmed) {
+                        deletePost();
+                      }
+                    });
+                  }}
+                />
+              </>
+            )}
           </>
         )}
       </Card.Footer>

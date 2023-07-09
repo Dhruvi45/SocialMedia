@@ -49,7 +49,7 @@ export default function Home() {
           {posts.map((post, index) => {
             return (
               <>
-                <PostCard post={post} setPosts={setPosts} />
+                <PostCard post={post} setPosts={setPosts} calledFrom={"home"} />
               </>
             );
           })}

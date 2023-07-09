@@ -36,7 +36,7 @@ export default function MyBookmarks() {
           {bookmarkPosts.length > 0 ? bookmarkPosts.map((post, index) => {
             return (
               <>
-                <PostCard post={post} setPosts={setBookmarkPosts} />
+                <PostCard post={post} setPosts={setBookmarkPosts} calledFrom={"bookmark"} />
               </>
             );
           }):<div>No data available </div>}

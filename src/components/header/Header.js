@@ -24,8 +24,6 @@ export default function Header() {
         </Navbar.Brand>
         <Nav className="me-auto">
           <Nav.Link onClick={()=>navigate("/home")}>Home</Nav.Link>
-          <Nav.Link href="#features">Features</Nav.Link>
-          <Nav.Link href="#pricing">Pricing</Nav.Link>
         </Nav>
         {user !== undefined && (
           <>
