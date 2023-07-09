@@ -92,6 +92,7 @@ export default function Signup() {
             <button type="submit" className="btn btn-primary">
               Submit
             </button>
+            <p>You havhe accoount please <a className="text-primary" onClick={()=>nevigate("/login")}>login</a></p>
           </div>
         </div>
       </form>

@@ -64,6 +64,7 @@ const nevigate = useNavigate()
             <button type="submit" className="btn btn-primary">
               Submit
             </button>
+            <p>Don't havhe accoount please <a className="text-primary" onClick={()=>nevigate("/signUp")}>signup</a></p>
           </div>
         </div>
       </form>
