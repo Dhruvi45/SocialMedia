@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { Button, Card, Col, Row, Form } from "react-bootstrap";
 import { UserContext } from "../../components/layout/Layout";
 import { axiosPost } from "../../utils/Helper";
+import { Avatar } from 'rsuite';
 export default function UserDeatil() {
   const { user, setUser } = useContext(UserContext);
 
@@ -17,7 +18,7 @@ export default function UserDeatil() {
 
   const onSubmit = (data) => {
     if (isEdit) {
-      axiosPost("/api/users/edit", data,token )
+      axiosPost("/api/users/edit", data, token)
         .then((res) => {
           setUser(res.data.user);
         })
@@ -44,9 +45,8 @@ export default function UserDeatil() {
                     <>
                       <input
                         type="text"
-                        className={`form-control mt-1 ${
-                          errors.firstName ? "border border-danger" : ""
-                        }`}
+                        className={`form-control mt-1 ${errors.firstName ? "border border-danger" : ""
+                          }`}
                         defaultValue={user.firstName}
                         placeholder="Enter firstName"
                         {...register("firstName", { required: true })}
@@ -69,9 +69,8 @@ export default function UserDeatil() {
                     <>
                       <input
                         type="text"
-                        className={`form-control mt-1 ${
-                          errors.lastName ? "border border-danger" : ""
-                        }`}
+                        className={`form-control mt-1 ${errors.lastName ? "border border-danger" : ""
+                          }`}
                         defaultValue={user.lastName}
                         placeholder="Enter lastName"
                         {...register("lastName", { required: true })}
@@ -96,9 +95,8 @@ export default function UserDeatil() {
                     <>
                       <input
                         type="text"
-                        className={`form-control mt-1 ${
-                          errors.username ? "border border-danger" : ""
-                        }`}
+                        className={`form-control mt-1 ${errors.username ? "border border-danger" : ""
+                          }`}
                         defaultValue={user.username}
                         placeholder="Enter username"
                         {...register("username", { required: true })}
@@ -121,9 +119,8 @@ export default function UserDeatil() {
                     <>
                       <input
                         type="password"
-                        className={`form-control mt-1 ${
-                          errors.password ? "border border-danger" : ""
-                        }`}
+                        className={`form-control mt-1 ${errors.password ? "border border-danger" : ""
+                          }`}
                         defaultValue={user.password}
                         placeholder="Enter password"
                         {...register("password", { required: true })}
@@ -141,15 +138,23 @@ export default function UserDeatil() {
                 </div>
               </Col>
             </Row>
+            <Row className="mt-3">
+              <div className="form-group d-flex">
+                <label className="mt-2 me-2 userDetailLabel">Avatar:</label>
+                <span className="mt-2">
+                  <Avatar circle src={user.avatar} alt={user.username} />
+                </span>
+              </div>
+            </Row>
           </Card.Body>
           <Card.Footer>
             <Button
               className="CreatePost-btn custom-btn"
               type="submit"
-              //   onClick={() => {
-              //     if (isEdit) handleSubmit(onSubmit);
-              //     setIsEdit(!isEdit);
-              //   }}
+            //   onClick={() => {
+            //     if (isEdit) handleSubmit(onSubmit);
+            //     setIsEdit(!isEdit);
+            //   }}
             >
               {" "}
               {!isEdit ? "Edit Details" : "update"}

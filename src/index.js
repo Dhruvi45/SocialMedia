@@ -7,6 +7,7 @@ import { makeServer } from "./server";
 import 'react-toastify/dist/ReactToastify.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'rsuite/dist/rsuite-no-reset.min.css';
+
 // Call make Server
 makeServer();
 const root = ReactDOM.createRoot(document.getElementById('root'));
