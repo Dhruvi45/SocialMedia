@@ -11,6 +11,7 @@ export default function AddPost(props) {
     axiosPost("/api/posts", { content: newPost },token)
       .then((res) => {
         setPosts(res.data.posts);
+        setNewPost('')
       })
       .catch((error) => {
         console.log("error", error);
@@ -36,6 +37,7 @@ export default function AddPost(props) {
                 rows={3}
                 placeholder="Create new posts....."
                 className="createPost"
+                value={newPost}
                 onChange={(e) => {
                   setNewPost(e.target.value);
                 }}
