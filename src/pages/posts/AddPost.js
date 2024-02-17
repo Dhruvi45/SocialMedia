@@ -1,14 +1,18 @@
-import React, { useState } from "react";
+import React, { useState,useContext } from "react";
 import { Button, Card, Col, Row, Form } from "react-bootstrap";
 import { axiosPost } from "../../utils/Helper";
 import "./AddPost.css";
+import { Avatar} from "rsuite";
+import { UserContext } from "../../components/layout/Layout";
+
 export default function AddPost(props) {
   const { setPosts } = props;
+  const { user } = useContext(UserContext);
   const [newPost, setNewPost] = useState();
   const token = localStorage.getItem("token");
 
   const onCreate = () => {
-    axiosPost("/api/posts", { content: newPost },token)
+    axiosPost("/api/posts", { content: newPost, avatar: user.avatar },token)
       .then((res) => {
         setPosts(res.data.posts);
         setNewPost('')
@@ -25,11 +29,13 @@ export default function AddPost(props) {
         <Card.Title>
           <Row>
             <Col md={1}>
-              <img
+              {/* <img
                 className="profileImg"
                 src={require("../../assets/images/profile1.jpg")}
                 alt="profile"
-              />
+              /> */}
+              <Avatar circle src={user.avatar} />
+
             </Col>
             <Col md={11} className="ps-0">
               <Form.Control

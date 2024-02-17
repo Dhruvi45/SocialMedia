@@ -3,11 +3,15 @@ import { useForm } from "react-hook-form";
 import { Button, Card, Col, Row, Form } from "react-bootstrap";
 import { UserContext } from "../../components/layout/Layout";
 import { axiosPost } from "../../utils/Helper";
-import { Avatar } from 'rsuite';
+// import { Avatar } from "rsuite";
+import { avatars } from "../../utils/CommonData";
+import "./UserDetail.css";
+import { Avatar, Dropdown, SelectPicker, Menu } from "rsuite";
 export default function UserDeatil() {
   const { user, setUser } = useContext(UserContext);
 
   const [isEdit, setIsEdit] = useState(false);
+  const [selectedAvatar, setSelectedAvatar] = useState(user.avatar);
   const token = localStorage.getItem("token");
 
   const {
@@ -17,6 +21,7 @@ export default function UserDeatil() {
   } = useForm();
 
   const onSubmit = (data) => {
+    data.avatar = selectedAvatar
     if (isEdit) {
       axiosPost("/api/users/edit", data, token)
         .then((res) => {
@@ -45,8 +50,9 @@ export default function UserDeatil() {
                     <>
                       <input
                         type="text"
-                        className={`form-control mt-1 ${errors.firstName ? "border border-danger" : ""
-                          }`}
+                        className={`form-control mt-1 ${
+                          errors.firstName ? "border border-danger" : ""
+                        }`}
                         defaultValue={user.firstName}
                         placeholder="Enter firstName"
                         {...register("firstName", { required: true })}
@@ -69,8 +75,9 @@ export default function UserDeatil() {
                     <>
                       <input
                         type="text"
-                        className={`form-control mt-1 ${errors.lastName ? "border border-danger" : ""
-                          }`}
+                        className={`form-control mt-1 ${
+                          errors.lastName ? "border border-danger" : ""
+                        }`}
                         defaultValue={user.lastName}
                         placeholder="Enter lastName"
                         {...register("lastName", { required: true })}
@@ -95,8 +102,9 @@ export default function UserDeatil() {
                     <>
                       <input
                         type="text"
-                        className={`form-control mt-1 ${errors.username ? "border border-danger" : ""
-                          }`}
+                        className={`form-control mt-1 ${
+                          errors.username ? "border border-danger" : ""
+                        }`}
                         defaultValue={user.username}
                         placeholder="Enter username"
                         {...register("username", { required: true })}
@@ -119,8 +127,9 @@ export default function UserDeatil() {
                     <>
                       <input
                         type="password"
-                        className={`form-control mt-1 ${errors.password ? "border border-danger" : ""
-                          }`}
+                        className={`form-control mt-1 ${
+                          errors.password ? "border border-danger" : ""
+                        }`}
                         defaultValue={user.password}
                         placeholder="Enter password"
                         {...register("password", { required: true })}
@@ -141,9 +150,34 @@ export default function UserDeatil() {
             <Row className="mt-3">
               <div className="form-group d-flex">
                 <label className="mt-2 me-2 userDetailLabel">Avatar:</label>
-                <span className="mt-2">
-                  <Avatar circle src={user.avatar} alt={user.username} />
-                </span>
+
+                {isEdit ? (
+                  <Dropdown
+                    title={
+                      <Avatar
+                        circle
+                        src={selectedAvatar}
+                        style={{ marginRight: 10 }}
+                      />
+                    }
+                    onSelect={(eventKey) => setSelectedAvatar(eventKey)}
+                  >
+                    {avatars.map((avatar, index) => (
+                      <Dropdown.Item key={index} eventKey={avatar.value}>
+                        <Avatar
+                          circle
+                          src={avatar.value}
+                          style={{ marginRight: 10 }}
+                        />{" "}
+                        {avatar.label}
+                      </Dropdown.Item>
+                    ))}
+                  </Dropdown>
+                ) : (
+                  <span className="mt-2">
+                    <Avatar circle src={user.avatar} alt={user.username} />
+                  </span>
+                )}
               </div>
             </Row>
           </Card.Body>
@@ -151,10 +185,6 @@ export default function UserDeatil() {
             <Button
               className="CreatePost-btn custom-btn"
               type="submit"
-            //   onClick={() => {
-            //     if (isEdit) handleSubmit(onSubmit);
-            //     setIsEdit(!isEdit);
-            //   }}
             >
               {" "}
               {!isEdit ? "Edit Details" : "update"}

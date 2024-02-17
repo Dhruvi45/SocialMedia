@@ -36,7 +36,7 @@ export default function MyProfile() {
         {posts.map((post, index) => {
           return (
             <>
-              <PostCard post={post} setPosts={setPosts} />
+              <PostCard post={post} setPosts={setPosts} key={index}/>
             </>
           );
         })}

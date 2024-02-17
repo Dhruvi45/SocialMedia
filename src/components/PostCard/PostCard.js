@@ -10,6 +10,7 @@ import "./PostCard.css";
 import { UserContext } from "../layout/Layout";
 import { axiosPost, axiosDelete } from "../../utils/Helper";
 import Swal from "sweetalert2";
+import { Avatar} from "rsuite";
 
 export default function PostCard({ post, setPosts, calledFrom }) {
   const { user, setUser } = useContext(UserContext);
@@ -94,11 +95,12 @@ export default function PostCard({ post, setPosts, calledFrom }) {
         <Card.Title>
           <Row>
             <Col md={1}>
-              <img
+              {/* <img
                 className="profileImg"
                 src={require("../../assets/images/profile1.jpg")}
                 alt="profile"
-              />
+              /> */}
+              <Avatar circle src={post.avatar} />
             </Col>
             <Col md={11} className="ps-0">
               <Row>

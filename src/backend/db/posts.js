@@ -18,6 +18,7 @@ export const posts = [
     },
     username: "adarshbalika",
     name:"Adarsh Balika",
+    avatar:"https://avatars.githubusercontent.com/u/8225666",
     createdAt: formatDate(),
     updatedAt: formatDate(),
     image:"post1"
@@ -33,6 +34,7 @@ export const posts = [
     },
     username: "shubhamsoni",
     name:"Shubham Soni",
+    avatar:"https://avatars.githubusercontent.com/u/15609339",
     createdAt: formatDate(),
     updatedAt: formatDate(),
     image:"post2"
