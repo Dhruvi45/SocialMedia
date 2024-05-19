@@ -1,13 +1,38 @@
-.custom-navbar {
-  background-color: #c2f0f0;
+@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap");
+
+body {
+  font-family: "Poppins", sans-serif;
 }
-.custom-sidebar {
-  background-color: #5cd6d6;
+
+:root {
+  --primary-color: #ef50f4;
+  --primary-dark: #990899c4;
+  --white-color: #ffffff;
+  --black-color: #000000;
+  --grey-color: #9ca3af;
+  --lightgrey-color: #e5e7eb;
+  --red-color: red;
+  --offwhite-color: #faf9f9;
+  --primary-darkmode: #0b2239;
+  --secondary-darkmode: #020a12;
 }
-.custom-card {
-  background-color: #99e6e6 !important;
+
+.bgDarkmode {
+  background-color: var(--primary-darkmode) !important;
+  color: var(--white-color) !important;
 }
-.custom-btn {
-  background-color: #239090 !important;
-  border: #239090 !important;
+
+.bgSecondaryDarkMode {
+  background-color: var(--secondary-darkmode) !important;
+  color: var(--white-color) !important;
+  border-radius: 5px !important;
+}
+
+.darkModeColor {
+  color: var(--white-color) !important;
+}
+
+.darkModeBorder {
+  border-color: var(--primary-darkmode) !important;
 }

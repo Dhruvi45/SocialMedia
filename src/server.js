@@ -75,7 +75,7 @@ export function makeServer({ environment = "development" } = {}) {
       this.get("/users/:userId", getUserHandler.bind(this));
 
       // user routes (private)
-      this.post("/users/edit", editUserHandler.bind(this));
+      this.post("users/edit", editUserHandler.bind(this));
       this.get("/users/bookmark", getBookmarkPostsHandler.bind(this));
       this.post("/users/bookmark/:postId/", bookmarkPostHandler.bind(this));
       this.post(
@@ -87,6 +87,8 @@ export function makeServer({ environment = "development" } = {}) {
         "/users/unfollow/:followUserId/",
         unfollowUserHandler.bind(this)
       );
+      this.passthrough("https://api.cloudinary.com/v1_1/ddvlw1otr/auto/upload");
+      this.passthrough("https://tenor.googleapis.com/**");
     },
   });
 }

@@ -4,16 +4,26 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { makeServer } from "./server";
-import 'react-toastify/dist/ReactToastify.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import 'rsuite/dist/rsuite-no-reset.min.css';
+import { BrowserRouter as Router } from 'react-router-dom';
+import { AuthContextProvider, useAuth } from './contexts/AuthContext';
+import { SocialDataProvider } from './contexts/SocialContext';
 
+
+
+export { useAuth }
 // Call make Server
 makeServer();
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    <Router>
+      <AuthContextProvider>
+        <SocialDataProvider>
+          <App />
+        </SocialDataProvider>
+      </AuthContextProvider>
+    </Router>
   </React.StrictMode>
 );
 
